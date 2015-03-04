@@ -1,10 +1,11 @@
 package com.studienarbeit.dhbw.e_app.Main.Main;
 
-
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import com.studienarbeit.dhbw.e_app.R;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity{
 
     private Button startButton;
     private Button pauseButton;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
     long updatedTime = 0L;
     boolean isPaused = false;
     boolean isStoped = false;
+    boolean running = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,33 +38,47 @@ public class MainActivity extends Activity {
 
         startButton = (Button) findViewById(R.id.startButton);
 
+        pauseButton = (Button) findViewById(R.id.pauseButton);
+
+
+
+        //Start/Stop Button
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (!isPaused) {
 
                     if (startButton.getText() == getString(R.string.startButtonLabel)) {
                         isStoped = false;
+                        running = true;
                         startButton.setText(R.string.stopButtonLabel);
+                        startButton.setBackgroundColor(getResources().getColor(R.color.red));
                         startTime = SystemClock.uptimeMillis();
                         customHandler.postDelayed(updateTimerThread, 0);
+
+
                     } else if (startButton.getText() == getString(R.string.stopButtonLabel)) {
                         isStoped = true;
+                        running = false;
                         startButton.setText(R.string.startButtonLabel);
+                        startButton.setBackgroundColor(getResources().getColor(R.color.green));
                         startTime = 0L;
+                        timerValue.setText("0:00:00");
                         customHandler.removeCallbacks(updateTimerThread);
                     }
                 }
                 else{
                     isPaused = false;
                     startButton.setText(R.string.stopButtonLabel);
+                    startButton.setBackgroundColor(getResources().getColor(R.color.green));
                     startTime = SystemClock.uptimeMillis();
                     customHandler.postDelayed(updateTimerThread, 0);
                 }
             }
         });
 
-        pauseButton = (Button) findViewById(R.id.pauseButton);
 
+
+        //Pause Button
         pauseButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -78,6 +94,28 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_activity2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
     }
@@ -87,22 +125,27 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-    private Runnable updateTimerThread = new Runnable() {
+
+    public Runnable updateTimerThread = new Runnable() {
 
         public void run() {
 
-            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            if (running)
+            {
+                timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
 
-            updatedTime = timeSwapBuff + timeInMilliseconds;
+                updatedTime = timeSwapBuff + timeInMilliseconds;
 
-            int secs = (int) (updatedTime / 1000);
-            int mins = secs / 60;
-            secs = secs % 60;
-            int milliseconds = (int) (updatedTime % 1000);
-            timerValue.setText("" + mins + ":"
-                    + String.format("%02d", secs) + ":"
-                    + String.format("%03d", milliseconds));
-            customHandler.postDelayed(this, 0);
+                int secs = (int) (updatedTime / 1000);
+                int mins = secs / 60;
+                secs = secs % 60;
+                int milliseconds = (int) (updatedTime % 1000);
+                timerValue.setText("" + mins + ":"
+                        + String.format("%02d", secs) + ":"
+                        + String.format("%03d", milliseconds));
+                customHandler.postDelayed(this, 0);
+            }
         }
+
     };
 }

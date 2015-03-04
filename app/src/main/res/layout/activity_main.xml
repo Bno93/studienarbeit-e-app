@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#000000"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#000000">
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
 
     <TextView
         android:id="@+id/timerValue"
@@ -25,7 +26,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="69dp"
-        android:layout_marginStart="69dp" />
+        android:layout_marginStart="69dp"
+        android:background="@color/green"/>
 
     <Button
         android:id="@+id/pauseButton"
@@ -36,6 +38,7 @@
         android:layout_toRightOf="@+id/startButton"
         android:layout_toEndOf="@+id/startButton"
         android:layout_marginLeft="67dp"
-        android:layout_marginStart="67dp" />
+        android:layout_marginStart="67dp"
+        android:background="@color/yellow"/>
 
 </RelativeLayout>
