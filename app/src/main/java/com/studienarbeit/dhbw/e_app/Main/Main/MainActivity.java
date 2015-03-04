@@ -62,14 +62,14 @@ public class MainActivity extends ActionBarActivity{
                         startButton.setText(R.string.startButtonLabel);
                         startButton.setBackgroundColor(getResources().getColor(R.color.green));
                         startTime = 0L;
-                        timerValue.setText("0:00:00");
+                        timerValue.setText("0:00:000");
                         customHandler.removeCallbacks(updateTimerThread);
                     }
                 }
                 else{
                     isPaused = false;
                     startButton.setText(R.string.stopButtonLabel);
-                    startButton.setBackgroundColor(getResources().getColor(R.color.green));
+                    startButton.setBackgroundColor(getResources().getColor(R.color.red));
                     startTime = SystemClock.uptimeMillis();
                     customHandler.postDelayed(updateTimerThread, 0);
                 }
@@ -85,6 +85,7 @@ public class MainActivity extends ActionBarActivity{
                 if (!isStoped) {
                     isPaused = true;
                     startButton.setText(R.string.startButtonLabel);
+                    startButton.setBackgroundColor(getResources().getColor(R.color.green));
                     timeSwapBuff += timeInMilliseconds;
                     customHandler.removeCallbacks(updateTimerThread);
                 }
