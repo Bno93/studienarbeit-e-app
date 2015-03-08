@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity{
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (!isPaused) {
-
+                    // Start Button
                     if (startButton.getText() == getString(R.string.startButtonLabel)) {
                         isStoped = false;
                         running = true;
@@ -55,15 +55,18 @@ public class MainActivity extends ActionBarActivity{
                         startTime = SystemClock.uptimeMillis();
                         customHandler.postDelayed(updateTimerThread, 0);
 
-
+                    // Stop Button
                     } else if (startButton.getText() == getString(R.string.stopButtonLabel)) {
                         isStoped = true;
                         running = false;
                         startButton.setText(R.string.startButtonLabel);
                         startButton.setBackgroundColor(getResources().getColor(R.color.green));
                         startTime = 0L;
+                        updatedTime = 0L;
+                        timeSwapBuff = 0L;
                         timerValue.setText("0:00:000");
                         customHandler.removeCallbacks(updateTimerThread);
+
                     }
                 }
                 else{
