@@ -129,7 +129,7 @@ public class MainActivity extends ActionBarActivity{
         super.onDestroy();
     }
 
-
+    //Timer Code
     public Runnable updateTimerThread = new Runnable() {
 
         public void run() {
