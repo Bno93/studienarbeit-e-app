@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-//import android.widget.Toast;
+import android.widget.Toast;
 
 
 import com.studienarbeit.dhbw.e_app.R;
@@ -30,7 +30,6 @@ public class MainActivity extends ActionBarActivity{
     long updatedTime = 0L;
     boolean isPaused = false;
     boolean isStoped = false;
-    boolean running = true;
     final int REQUEST_ENABLE_BT = 2;
 
     @Override
@@ -39,21 +38,20 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
 
         timerValue = (TextView) findViewById(R.id.timerValue);
-
         startButton = (Button) findViewById(R.id.startButton);
-
         pauseButton = (Button) findViewById(R.id.pauseButton);
 
+        isPaused = false;
+        isStoped = false;
 
-
-        //Start/Stop Button
+        //Start\Stop Button
         startButton.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View view) {
                 if (!isPaused) {
                     // Start Button
                     if (startButton.getText() == getString(R.string.startButtonLabel)) {
                         isStoped = false;
-                        running = true;
                         startButton.setText(R.string.stopButtonLabel);
                         startButton.setBackgroundColor(getResources().getColor(R.color.red));
                         startTime = SystemClock.uptimeMillis();
@@ -62,7 +60,6 @@ public class MainActivity extends ActionBarActivity{
                     // Stop Button
                     } else if (startButton.getText() == getString(R.string.stopButtonLabel)) {
                         isStoped = true;
-                        running = false;
                         startButton.setText(R.string.startButtonLabel);
                         startButton.setBackgroundColor(getResources().getColor(R.color.green));
                         startTime = 0L;
@@ -143,21 +140,18 @@ public class MainActivity extends ActionBarActivity{
 
         public void run() {
 
-            if (running)
-            {
-                timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
 
-                updatedTime = timeSwapBuff + timeInMilliseconds;
+            updatedTime = timeSwapBuff + timeInMilliseconds;
 
-                int secs = (int) (updatedTime / 1000);
-                int mins = secs / 60;
-                secs = secs % 60;
-                int milliseconds = (int) (updatedTime % 1000);
-                timerValue.setText("" + mins + ":"
-                        + String.format("%02d", secs) + ":"
-                        + String.format("%03d", milliseconds));
-                customHandler.postDelayed(this, 0);
-            }
+            int secs = (int) (updatedTime / 1000);
+            int mins = secs / 60;
+            secs = secs % 60;
+            int milliseconds = (int) (updatedTime % 1000);
+            timerValue.setText("" + mins + ":"
+                    + String.format("%02d", secs) + ":"
+                    + String.format("%03d", milliseconds));
+            customHandler.postDelayed(this, 0);
         }
 
     };
