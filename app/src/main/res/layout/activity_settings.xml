@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:key="settings_screen"
+    android:persistent="true"
+    android:title="@string/settings_title"
+    tools:context=".SettingsActivity" >
+
+    <Preference
+        android:key="settings_bluetooth"
+        android:title="@string/settings_bluetooth" />
+
+    <!--
+         // Um ein Passwort zu verstecken:
+         <EditTextPreference
+         android:inputType="textPassword"
+    -->
+
+    <EditTextPreference
+        android:key="settings_password"
+        android:summary="@string/settings_password_sum"
+        android:title="@string/settings_password" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="settings_autolog"
+        android:summary="@string/settings_autolog_sum"
+        android:title="@string/settings_autolog" />
+
+    <ListPreference
+        android:defaultValue="km"
+        android:entries="@array/settings_distance_long"
+        android:entryValues="@array/settings_distance_unit"
+        android:key="settings_distance"
+        android:title="@string/settings_distance" />
+
+    <EditTextPreference
+        android:key="settings_battery"
+        android:summary="@string/settings_battery_sum"
+        android:title="@string/settings_battery" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="settings_advanced"
+        android:title="@string/settings_advanced" />
+
+    <PreferenceScreen
+        android:id="@+id/settings_controller"
+        android:enabled="false"
+        android:key="settings_controller"
+        android:persistent="false"
+        android:title="@string/settings_controller" >
+
+        <EditTextPreference android:key="AT_UPWD_N" />
+
+        <EditTextPreference android:key="AT_PUSH_N" />
+
+        <EditTextPreference android:key="AT_PUSHINT_N" />
+
+        <EditTextPreference android:key="AT_CALIBL_N" />
+
+        <EditTextPreference android:key="AT_CALIBH_N" />
+
+        <EditTextPreference android:key="AT_PP_N" />
+
+        <EditTextPreference android:key="AT_VL_N" />
+
+        <EditTextPreference android:key="AT_VLL_N" />
+
+        <EditTextPreference android:key="AT_CL_N" />
+
+        <EditTextPreference android:key="AT_CLL_N" />
+
+        <EditTextPreference android:key="AT_MM_N" />
+
+        <EditTextPreference android:key="AT_KPC_N" />
+
+        <EditTextPreference android:key="AT_KIC_N" />
+
+        <EditTextPreference android:key="AT_KPS_N" />
+
+        <EditTextPreference android:key="AT_KIS_N" />
+
+        <EditTextPreference android:key="AT_KK_N" />
+
+        <EditTextPreference android:key="AT_LIGHT_N" />
+
+        <EditTextPreference android:key="AT_LVL_N" />
+
+        <EditTextPreference android:key="AT_CL1_0_N" />
+
+        <EditTextPreference android:key="AT_CL1_1_N" />
+
+        <EditTextPreference android:key="AT_CL2_0_N" />
+
+        <EditTextPreference android:key="AT_CL2_1_N" />
+
+        <EditTextPreference android:key="AT_SL1_0_N" />
+
+        <EditTextPreference android:key="AT_SL1_1_N" />
+
+        <EditTextPreference android:key="AT_SL2_0_N" />
+
+        <EditTextPreference android:key="AT_SL2_1_N" />
+
+        <EditTextPreference android:key="AT_CLT_0_N" />
+
+        <EditTextPreference android:key="AT_CLT_1_N" />
+
+        <EditTextPreference android:key="AT_PEDAL_N" />
+
+        <EditTextPreference android:key="AT_OTO_N" />
+
+        <EditTextPreference android:key="AT_CCM_N" />
+
+        <EditTextPreference android:key="AT_THM_N" />
+
+        <EditTextPreference android:key="AT_PR_N" />
+
+        <EditTextPreference android:key="AT_PTIME_N" />
+
+        <EditTextPreference android:key="AT_VA_N" />
+
+        <Preference android:key="AT_0_" />
+
+        <Preference android:key="AT_DFLT_" />
+
+        <Preference android:key="AT_LOGOUT_" />
+
+        <Preference android:key="AT_CCAP_" />
+
+        <Preference android:key="AT_CDIST_" />
+
+        <Preference android:key="AT_EON_" />
+
+        <Preference android:key="AT_EOFF_" />
+
+        <Preference android:key="AT_PARAM_LIST_" />
+
+        <Preference android:key="AT_LOGIN_" />
+
+        <Preference android:key="settings_log" />
+    </PreferenceScreen>
+
+    <Preference
+        android:key="settings_about"
+        android:title="@string/settings_about" />
+
+</PreferenceScreen>
