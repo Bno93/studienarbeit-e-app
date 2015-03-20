@@ -1,4 +1,4 @@
-package de.dhbw.e_mobility.e_app.bluetooth;
+package com.studienarbeit.dhbw.e_app.Main.Bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import de.dhbw.e_mobility.e_app.common.ActivityHandler;
-import de.dhbw.e_mobility.e_app.common.IntentKeys;
-import de.dhbw.e_mobility.e_app.speedo.SpeedoValues;
+import com.studienarbeit.dhbw.e_app.Main.Common.ActivityHandler;
+import com.studienarbeit.dhbw.e_app.Main.Common.IntentKeys;
+import com.studienarbeit.dhbw.e_app.Main.Main.SpeedoValues;
 
 public class ConnectionService {
 

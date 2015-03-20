@@ -1,4 +1,4 @@
-package de.dhbw.e_mobility.e_app.bluetooth;
+package com.studienarbeit.dhbw.e_app.Main.Bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import de.dhbw.e_mobility.e_app.common.ActivityHandler;
-import de.dhbw.e_mobility.e_app.common.IntentKeys;
+import com.studienarbeit.dhbw.e_app.Main.Common.ActivityHandler;
+import com.studienarbeit.dhbw.e_app.Main.Common.IntentKeys;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 

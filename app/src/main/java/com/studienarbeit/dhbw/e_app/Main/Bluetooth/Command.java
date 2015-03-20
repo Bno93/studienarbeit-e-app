@@ -1,4 +1,4 @@
-package de.dhbw.e_mobility.e_app.bluetooth;
+package com.studienarbeit.dhbw.e_app.Main.Bluetooth;
 
 import android.util.Log;
 

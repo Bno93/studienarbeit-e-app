@@ -1,4 +1,4 @@
-package de.dhbw.e_mobility.e_app.bluetooth;
+package com.studienarbeit.dhbw.e_app.Main.Bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -12,11 +12,12 @@ import android.widget.ArrayAdapter;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import de.dhbw.e_mobility.e_app.R;
-import de.dhbw.e_mobility.e_app.common.ActivityHandler;
-import de.dhbw.e_mobility.e_app.common.IntentKeys;
-import de.dhbw.e_mobility.e_app.dialog.BluetoothDialogDiscovery;
-import de.dhbw.e_mobility.e_app.speedo.SpeedoValues;
+
+import com.studienarbeit.dhbw.e_app.Main.Common.ActivityHandler;
+import com.studienarbeit.dhbw.e_app.Main.Common.IntentKeys;
+import com.studienarbeit.dhbw.e_app.Main.Dialog.BluetoothDialogDiscovery;
+import com.studienarbeit.dhbw.e_app.Main.Main.SpeedoValues;
+import com.studienarbeit.dhbw.e_app.R;
 
 public class DeviceProvider {
 

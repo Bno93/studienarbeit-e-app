@@ -1,7 +1,9 @@
-package de.dhbw.e_mobility.e_app.bluetooth;
+package com.studienarbeit.dhbw.e_app.Main.Bluetooth;
 
-import de.dhbw.e_mobility.e_app.R;
-import de.dhbw.e_mobility.e_app.common.ActivityHandler;
+
+import com.studienarbeit.dhbw.e_app.R;
+import com.studienarbeit.dhbw.e_app.Main.Common.ActivityHandler;
+
 
 public enum BluetoothInfoState {
 
