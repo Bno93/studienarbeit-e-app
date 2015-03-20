@@ -1,5 +1,7 @@
 package com.studienarbeit.dhbw.e_app.Main.Main;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+//import android.widget.Toast;
 
 
 import com.studienarbeit.dhbw.e_app.R;
@@ -28,6 +31,7 @@ public class MainActivity extends ActionBarActivity{
     boolean isPaused = false;
     boolean isStoped = false;
     boolean running = true;
+    final int REQUEST_ENABLE_BT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +117,12 @@ public class MainActivity extends ActionBarActivity{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Hier muss die SettingsActivity gestartet werden
             return true;
+        }
+        else if (id == R.id.action_bluetooth){
+            bluetoothTurnOn();
+            //Toast.makeText(this, "Bluetooth einschalten", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -152,4 +161,17 @@ public class MainActivity extends ActionBarActivity{
         }
 
     };
+
+    private void bluetoothTurnOn()
+    {
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter != null)
+        {
+            if (!mBluetoothAdapter.isEnabled())
+            {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
+    }
 }
