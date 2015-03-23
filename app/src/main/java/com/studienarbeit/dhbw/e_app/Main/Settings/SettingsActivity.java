@@ -18,6 +18,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.studienarbeit.dhbw.e_app.Main.Bluetooth.Command;
@@ -49,13 +50,12 @@ public class SettingsActivity extends PreferenceActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.layout.activity_settings);
-        setTheme(android.R.style.Theme_Black);
+        //setTheme(android.R.style.Theme_Black);
 
         // Set setOnPreferenceClickListener to preferences
         Preference pref_bluetooth = getPreference(SettingsElements.BLUETOOTH);
         if (pref_bluetooth != null) {
-            pref_bluetooth
-                    .setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            pref_bluetooth.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
                             // Disable the preference, that user has to wait for feedback
@@ -239,6 +239,11 @@ public class SettingsActivity extends PreferenceActivity implements
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
     // Enables or disables the advanced settings
     private void enableAdvancedSettings(boolean value,
                                         CheckBoxPreference advancedPref) {
@@ -354,8 +359,7 @@ public class SettingsActivity extends PreferenceActivity implements
                 } else if (msg.what == IntentKeys.START_DISCOVERING_DEVICES.getValue()) {
                     // STARTING THE DISCOVERY DIALOG
                     startActivityForResult(new Intent(getApplicationContext(),
-                                    BluetoothDialogDiscovery.class),
-                            BLUETOOTH_REQUEST_DISCOVERY
+                                    BluetoothDialogDiscovery.class),BLUETOOTH_REQUEST_DISCOVERY
                     );
                 } else if (msg.what == IntentKeys.ENABLE_BLUETOOTH_PREF.getValue()) {
                     enableBluetoothPreference(true);
@@ -431,10 +435,9 @@ public class SettingsActivity extends PreferenceActivity implements
     }
 
     // Updating the preference summary
-    private void updatePreference(SharedPreferences sharedPreferences,
-                                  String key) {
-        if (key.equals(SettingsElements.AUTOLOG.getKey()) || key.equals(SettingsElements.ADVANCED.getKey())
-                || key.equals(SettingsElements.DEVICE.getKey()) || key.equals(SettingsElements.LOGGING.getKey())) {
+    private void updatePreference(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(SettingsElements.AUTOLOG.getKey()) || key.equals(SettingsElements.ADVANCED.getKey()) ||
+            key.equals(SettingsElements.DEVICE.getKey())  || key.equals(SettingsElements.LOGGING.getKey())) {
             return;
         }
         if (key.equals(SettingsElements.PASSWORD.getKey())) {
@@ -442,12 +445,9 @@ public class SettingsActivity extends PreferenceActivity implements
             if (tmpPref == null) {
                 Log.e("Settings", "Preference not found! (" + key + ")");
             } else {
-                String value = sharedPreferences.getString(key, "");
-                tmpPref.setTitle(activityHandler
-                        .getStr(R.string.settings_password)
-                        + " ("
-                        + value
-                        + ")");
+                String value = "";
+                value = sharedPreferences.getString(key, "");
+                tmpPref.setTitle(activityHandler.getStr(R.string.settings_password)+ " ("  + value + ")");
             }
         } else if (key.equals(SettingsElements.BATTERY.getKey())) {
             EditTextPreference tmpPref = (EditTextPreference) findPreference(key);
@@ -464,8 +464,7 @@ public class SettingsActivity extends PreferenceActivity implements
                     value = sharedPreferences.getString(key, "");
                     tmpPref.setText(value);
                 }
-                tmpPref.setTitle(activityHandler
-                        .getStr(R.string.settings_battery)
+                tmpPref.setTitle(activityHandler.getStr(R.string.settings_battery)
                         + " ("
                         + value
                         + ")");
@@ -481,8 +480,7 @@ public class SettingsActivity extends PreferenceActivity implements
     }
 
     // Initialize the preference
-    private void initPreference(SharedPreferences sharedPreferences,
-                                SettingsElements element) {
+    private void initPreference(SharedPreferences sharedPreferences, SettingsElements element) {
         updatePreference(sharedPreferences, element.getKey());
     }
 

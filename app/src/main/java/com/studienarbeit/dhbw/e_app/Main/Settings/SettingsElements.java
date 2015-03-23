@@ -100,9 +100,9 @@ public enum SettingsElements {
     AT_VA_N("AT_VA_N", Command.AT_VA_N,
             "Korrekturwert fuer Spannungsanzeige (-30...30 in 1/10 V)"); //
 
-    private String key;
-    private Command command;
-    private String summary;
+    private String key = "";
+    private Command command = null;
+    private String summary = "";
 
     // Constructor
     SettingsElements(String theKey) {

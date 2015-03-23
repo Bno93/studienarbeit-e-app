@@ -11,6 +11,8 @@
     <string name="action_bluetooth">Bluetooth</string>
     <string name="action_about">über</string>
     <string name="battery_text">0 %</string>
+    <string name="bluetooth_connect">verbinden</string>
+    <string name="bluetooth_diconnect">trennen</string>
 
     <!-- Settings -->
     <string name="settings_title">Einstellungen</string>
@@ -28,8 +30,8 @@
     <string name="settings_about">Info</string>
     <string name="settings_about_text">Projekt im Rahmen einer Studienarbeit zu Elektromobilität.\r\n\r\nDHBW Karlsruhe 2014\r\ne-mobility@googlegroups.com</string>
 
-    <string name="bluetooth_text_connected">verbunden</string>
-    <string name="bluetooth_text_disconnected">nicht verbunden</string>
+    <string name="bluetooth_text_connect">verbunden</string>
+    <string name="bluetooth_text_disconnect">nicht verbunden</string>
 
     <string name="bluetooth_info_enabled">Bluetooth aktiviert</string>
     <string name="bluetooth_bound_bounded">Erfolgreich gekoppelt mit </string>

@@ -42,14 +42,24 @@
         android:background="@color/yellow"/>
 
     <TextView
+        android:id="@+id/battery_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/battery_text"
-        android:id="@+id/textView"
         android:textColor="#ffffff"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bluetooth_diconnect"
+        android:id="@+id/bluetooth_connection"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/battery_text"
+        android:layout_toStartOf="@+id/battery_text"
+        android:background="@color/red" />
 
 </RelativeLayout>
