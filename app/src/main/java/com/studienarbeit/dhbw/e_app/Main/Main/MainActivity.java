@@ -297,13 +297,9 @@ public class MainActivity extends ActionBarActivity{
 
     private void showBattery()
     {
-        int capacity = activityHandler.getBattery();
-        TextView battery_text = (TextView) findViewById(R.id.battery_text);
-        capacity = ((capacity == 0) ? 0 : (int) ((capacity - SpeedoValues.C.getValue() * 1000) * 100 / capacity));
-        Toast.makeText(this, capacity + "%", Toast.LENGTH_LONG).show();
-        capacity = ((capacity < 0) ? 0 : capacity);
-        battery_text.setText(capacity+" %");
-
+        TextView batteryText = (TextView)findViewById(R.id.battery_text);
+        updateUiService.update(batteryText, updateIntervall, activityHandler);
+        Toast.makeText(this,"update", Toast.LENGTH_SHORT).show();
     }
 
 

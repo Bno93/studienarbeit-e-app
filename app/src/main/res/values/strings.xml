@@ -12,7 +12,7 @@
     <string name="action_about">über</string>
     <string name="battery_text">0 %</string>
     <string name="bluetooth_connect">verbinden</string>
-    <string name="bluetooth_diconnect">trennen</string>
+    <string name="bluetooth_diconnect">update</string>
 
     <!-- Settings -->
     <string name="settings_title">Einstellungen</string>

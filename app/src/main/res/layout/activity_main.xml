@@ -60,6 +60,6 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/battery_text"
         android:layout_toStartOf="@+id/battery_text"
-        android:background="@color/red" />
+        android:background="#fff8fff1" />
 
 </RelativeLayout>

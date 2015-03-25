@@ -33,7 +33,10 @@ public class UpdateUiService extends Service {
 
     public void update(TextView batteryText, long updateIntervall, ActivityHandler activityHandler)
     {
+
+
         try{
+
             Thread.sleep(updateIntervall);
             int capacity = activityHandler.getBattery();
             //capacity = ((capacity == 0) ? 0 : (int) ((capacity - SpeedoValues.C.getValue() * 1000) * 100 / capacity));
