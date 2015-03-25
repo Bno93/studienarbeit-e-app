@@ -2,10 +2,14 @@ package com.studienarbeit.dhbw.e_app.Main.Main;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -34,7 +38,8 @@ public class MainActivity extends ActionBarActivity{
     private Handler customHandler = new Handler();
     private ActivityHandler activityHandler = ActivityHandler.getInstance();
     private DeviceProvider deviceProvider = DeviceProvider.getInstance();
-    private UpdateGui updateGui;
+    private UpdateUiService updateUiService;
+
     private final long updateIntervall = 500;
 
     long timeInMilliseconds = 0L;
@@ -43,6 +48,7 @@ public class MainActivity extends ActionBarActivity{
     boolean isPaused = false;
     boolean isStoped = false;
     final int REQUEST_ENABLE_BT = 2;
+    boolean mBound = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +57,6 @@ public class MainActivity extends ActionBarActivity{
         //Init des ActivityHandlers und des DeviceProviders
         activityHandler.setMainContext(this);
         deviceProvider.init();
-
-        updateGui = new UpdateGui();
-
 
         timerValue = (TextView) findViewById(R.id.timerValue);
 
@@ -147,6 +150,7 @@ public class MainActivity extends ActionBarActivity{
         });
 
 
+//
     }//onCreate
 
     @Override
@@ -181,44 +185,73 @@ public class MainActivity extends ActionBarActivity{
         return super.onOptionsItemSelected(item);
     }//onOptionsItemSelected
 
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            UpdateUiService.UpdateUiBinder binder = (UpdateUiService.UpdateUiBinder) service;
+            updateUiService = binder.getService();
+            Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+            mBound = false;
+
+            TextView batteryText = (TextView)findViewById(R.id.battery_text);
+            updateUiService.update(batteryText, updateIntervall, activityHandler);
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+
     @Override
     protected void onStart() {
         super.onStart();
         activityHandler.add(this);
-        //updateGui.run();
+        Intent intent = new Intent(this, UpdateUiService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
+
+
 
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         activityHandler.add(this);
 
-        if (updateGui.isInterrupted())
-            updateGui.start();
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (updateGui.isAlive())
-            updateGui.interrupt();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         activityHandler.del(this);
-        if (updateGui.isAlive())
-            updateGui.interrupt();
+        if(mBound)
+        {
+            unbindService(mConnection);
+            mBound = false;
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (updateGui.isAlive())
-            updateGui.interrupt();
+
         if (deviceProvider != null) {
             deviceProvider.unregisterReceiver();
             deviceProvider = null;
@@ -259,21 +292,7 @@ public class MainActivity extends ActionBarActivity{
         }
     }
 
-    private void updateElements(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
-                int capacity = activityHandler.getBattery();
-                //capacity = ((capacity == 0) ? 0 : (int) ((capacity - SpeedoValues.C.getValue() * 1000) * 100 / capacity));
-                //capacity = ((capacity < 0) ? 0 : capacity);
-                TextView battery_text = (TextView) findViewById(R.id.battery_text);
-                if (battery_text != null) {
-                    battery_text.setText(String.valueOf(capacity) + "%");
-                }
-            }
-        });
-    }
 
 
     private void showBattery()
@@ -281,20 +300,28 @@ public class MainActivity extends ActionBarActivity{
         int capacity = activityHandler.getBattery();
         TextView battery_text = (TextView) findViewById(R.id.battery_text);
         capacity = ((capacity == 0) ? 0 : (int) ((capacity - SpeedoValues.C.getValue() * 1000) * 100 / capacity));
+        Toast.makeText(this, capacity + "%", Toast.LENGTH_LONG).show();
         capacity = ((capacity < 0) ? 0 : capacity);
         battery_text.setText(capacity+" %");
-        //Toast.makeText(this, capacity + " %", Toast.LENGTH_LONG).show();
+
     }
 
-    //inner Classes
+
     private class UpdateGui extends Thread{
+        //TODO Binded Service
         @Override
         public void run() {
             while(true)
             {
                 try{
                     Thread.sleep(updateIntervall);
-                    updateElements();
+                    int capacity = activityHandler.getBattery();
+                    //capacity = ((capacity == 0) ? 0 : (int) ((capacity - SpeedoValues.C.getValue() * 1000) * 100 / capacity));
+                    //capacity = ((capacity < 0) ? 0 : capacity);
+                    TextView battery_text = (TextView) findViewById(R.id.battery_text);
+                    if (battery_text != null) {
+                        battery_text.setText(String.valueOf(capacity) + "%");
+                    }
 
                 }catch (InterruptedException e)
                 {

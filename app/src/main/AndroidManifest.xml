@@ -25,7 +25,7 @@
             android:label="@string/settings_title"
             android:parentActivityName=".Main.Main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.Main.MainActivity" />
@@ -34,7 +34,13 @@
             android:name=".Main.Dialog.BluetoothDialogDiscovery"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/dialog_deviceList_title"
-            android:theme="@style/Base.Theme.AppCompat.Dialog"/>
+            android:theme="@style/Base.Theme.AppCompat.Dialog" />
+
+        <service
+            android:name=".Main.Main.UpdateUiService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
